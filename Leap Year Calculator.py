@@ -8,3 +8,7 @@ if check == "00":
         print(year + " is a leap year")
     else:
         print(year +  " is not a leap year")
+elif leap == 0:
+    print(year + " is a leap year")
+else:
+    print(year +  " is not a leap year")
