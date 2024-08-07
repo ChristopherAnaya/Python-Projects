@@ -5,14 +5,14 @@ wordlisted = list(word)
 empty = ""
 for x in wordlisted:
     empty += "_"
-chances = 2
+chances = 10
 dupetest = word
 wrong = ""
 solved = len(word)
 stop = 1
 print("The word is " + str(len(word)) + " letters long.")
 while stop > 0:
-    letter = input("Choose a letter")
+    letter = str(input("Choose a letter"))
     if letter in word:
         if letter in dupetest:
             for x in dupetest:
@@ -45,4 +45,4 @@ while stop > 0:
 if solved == 0:
     print("You win")
 if chances == 0:
-    print("You lose")
+    print("You lose the word was " + word + ".")
