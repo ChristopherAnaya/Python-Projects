@@ -4,13 +4,11 @@ def queue_time(c):
     def till(z):
         if z == 0:
             del c[0]
-            print(c)
         else:
             c[0] -= 1
-            print(c[0])
-            time += 1
-            print(c)
     while stop == 0:
+        if c[0] != 0:
+            time += 1
         till(c[0])
         if c == []:
             stop = 1
