@@ -24,10 +24,43 @@ def is_valid(t, q):
             end = 0
     return h
 def get_right_truncatable_primes(base):
-    for x in range(base):
-        print(is_valid(x, base))
-    
-
+    works = True
+    test = False
+    hold = []
+    test_case = []
+    helpme = 2
+    for x in range(1, base):
+        test_case.append(x)
+    while works == True:
+        for x in test_case:
+            l = x
+            x = is_valid(x, base)
+            if x == False:
+                test = True
+                hold.append(l)
+        if test == False:
+            works = False
+        test = False
+        copy = test_case.copy()
+        print("hello")
+        for x in hold:
+            for y in range(len(copy)):
+                print(copy)
+                print(y)
+                print(str(test_case[y-1]))
+                print(test_case)
+                z = str(test_case[y-1]) + str(x)
+                print(z)
+                test_case.append(int(z))
+                print("------------")
+            print("h")
+        del test_case[0:len(copy)]
+        print(test_case)
+        helpme -= 1
+        if helpme == 0:
+            break
+    print(hold)
+    return test_case
 
 print(get_right_truncatable_primes(6))
 
