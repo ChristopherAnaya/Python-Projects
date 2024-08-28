@@ -6,91 +6,93 @@ def base_convert_to_10(b, n):
         z *= b
     return y
 def is_prime(n):
-    if n % 2 ==0 and n > 2:
+    if n < 2 :
         return False
-    else:
+    elif n == 2:
         return True
-def is_valid(t, q):
+    else:
+        for x in range(2, n):
+            if n % x == 0:
+                return False
+        return True
+def is_valid(b, n):
     h = True
-    end = len(str(t))
+    end = len(str(n))
     while end >0:
-        g = base_convert_to_10(q, t)
+        g = base_convert_to_10(b, n)
         h = is_prime(g)
-        t = list(str(t))
-        del t[-1]
-        t = "".join(t)
+        n = list(str(n))
+        del n[-1]
+        n = "".join(n)
         end -= 1
         if h == False:
             end = 0
     return h
 def get_right_truncatable_primes(base):
-    works = True
-    test = False
-    hold = []
-    test_case = []
-    helpme = 2
-    for x in range(1, base):
-        test_case.append(x)
-    while works == True:
-        for x in test_case:
-            l = x
-            x = is_valid(x, base)
-            if x == False:
-                test = True
-                hold.append(l)
-        if test == False:
-            works = False
-        test = False
-        copy = test_case.copy()
-        print("hello")
-        for x in hold:
-            for y in range(len(copy)):
-                print(copy)
-                print(y)
-                print(str(test_case[y-1]))
-                print(test_case)
-                z = str(test_case[y-1]) + str(x)
-                print(z)
-                test_case.append(int(z))
-                print("------------")
-            print("h")
-        del test_case[0:len(copy)]
-        print(test_case)
-        helpme -= 1
-        if helpme == 0:
-            break
-    print(hold)
-    return test_case
+    test_cases = [x for x in range(1, base)]
+    final = []
+    clone = []
+    clone = test_cases.copy()
+    stop = False
+    end = True
+    tests = 3
+    times = 0
+    while stop == False:
+        for x in clone:
+            z = is_valid(base, x)
 
+            if z == True:
+                end = False
+                final.append(x)
+
+        if end == True:
+            stop = True
+        end = True
+        leg = len(final)
+        
+        clone = []
+        hold = 0
+        times += 1
+
+        for x in final:
+            z = final.copy()
+            c = z.pop(hold)
+            if c in z:
+                del final[z.index(c) + 1]
+            hold += 1
+        if times > 1:
+            for y in final[length:leg]:
+                y = str(y)
+                y = y[1:(len(str(y)))]
+                for x in final[0:length]:
+                    x = str(x)
+                    if x == y:
+                        del final[final.index(int(x))]
+
+        if times > 1:
+            for y in final[length:leg]:
+                y = str(y)
+                y = y[0:(len(str(y)))-1]
+                for x in final[0:length]:
+                    x = str(x)
+                    if x == y:
+                        del final[final.index(int(x))]
+                        
+        length = len(final)
+        print("hello")
+        
+
+        for x in final:
+            for y in test_cases:
+                z = str(y) + str(x)
+                z = int(z)
+                clone.append(z)
+
+    print(final)
+    for x in final:
+        z = final.index(x)
+        x = base_convert_to_10(base, x)
+        final[z] = x
+    return final
 print(get_right_truncatable_primes(6))
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def base_covert_from_10(b, n):
-    x = ""
-    while n >= b:
-        x += str(n % b)
-        n -= int(n % b)
-        n = int(n/b)
-    if n != 0:
-        x += str(n)
-    return x[len(x)::-1]
