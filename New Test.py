@@ -1,98 +1,83 @@
-def base_convert_to_10(b, n):
-    y = 0
-    z =1
-    for x in list(str(n)[len(str(n))::-1]):
-        y += int(x) * z
-        z *= b
-    return y
-def is_prime(n):
-    if n < 2 :
-        return False
-    elif n == 2:
-        return True
+def bomb_has_been_planted(m, time):
+    kloc = []
+    the_return = True
+    for x in range(len(m)):
+        for y in range(len(m[0])):
+            if m[x][y] == "CT":
+                ctloc = [x,y]
+            if m[x][y] == "B":
+                bloc = [x,y]
+            if m[x][y] == "K":
+                kloc = [x,y]
+    dist = 0
+    while ctloc[0] != bloc[0] and ctloc[1] != bloc[1]:
+        if ctloc[0] < bloc[0] and ctloc[1] < bloc[1]:
+            ctloc[0] += 1
+            ctloc[1] += 1
+            dist += 1
+        if ctloc[0] < bloc[0] and ctloc[1] > bloc[1]:
+            ctloc[0] += 1
+            ctloc[1] -= 1
+            dist += 1
+        if ctloc[0] > bloc[0] and ctloc[1] < bloc[1]:
+            ctloc[0] -= 1
+            ctloc[1] += 1
+            dist += 1
+        if ctloc[0] > bloc[0] and ctloc[1] > bloc[1]:
+            ctloc[0] -= 1
+            ctloc[1] -= 1
+            dist += 1
+    dist += abs(ctloc[0] - bloc[0]) + abs(ctloc[1] - bloc[1])
+    if dist + 10 > time:
+        the_return = False
+        print("fail")
     else:
-        for x in range(2, n):
-            if n % x == 0:
-                return False
         return True
-def is_valid(b, n):
-    h = True
-    end = len(str(n))
-    while end >0:
-        g = base_convert_to_10(b, n)
-        h = is_prime(g)
-        n = list(str(n))
-        del n[-1]
-        n = "".join(n)
-        end -= 1
-        if h == False:
-            end = 0
-    return h
-def get_right_truncatable_primes(base):
-    test_cases = [x for x in range(1, base)]
-    final = []
-    clone = []
-    clone = test_cases.copy()
-    stop = False
-    end = True
-    tests = 3
-    times = 0
-    while stop == False:
-        for x in clone:
-            z = is_valid(base, x)
+    if the_return == False:
+        if kloc != []:
+            dist = 0
+            while ctloc[0] != kloc[0] and ctloc[1] != kloc[1]:
+                if ctloc[0] < kloc[0] and ctloc[1] < kloc[1]:
+                    ctloc[0] += 1
+                    ctloc[1] += 1
+                    dist += 1
+                if ctloc[0] < kloc[0] and ctloc[1] > kloc[1]:
+                    ctloc[0] += 1
+                    ctloc[1] -= 1
+                    dist += 1
+                if ctloc[0] > kloc[0] and ctloc[1] < kloc[1]:
+                    ctloc[0] -= 1
+                    ctloc[1] += 1
+                    dist += 1
+                if ctloc[0] > kloc[0] and ctloc[1] > kloc[1]:
+                    ctloc[0] -= 1
+                    ctloc[1] -= 1
+                    dist += 1
+            print(dist)
+            dist += abs(ctloc[0] - kloc[0]) + abs(ctloc[1] - kloc[1])
+            print(dist)
 
-            if z == True:
-                end = False
-                final.append(x)
 
-        if end == True:
-            stop = True
-        end = True
-        leg = len(final)
-        
-        clone = []
-        hold = 0
-        times += 1
+        else:
+            return False
 
-        for x in final:
-            z = final.copy()
-            c = z.pop(hold)
-            if c in z:
-                del final[z.index(c) + 1]
-            hold += 1
-        if times > 1:
-            for y in final[length:leg]:
-                y = str(y)
-                y = y[1:(len(str(y)))]
-                for x in final[0:length]:
-                    x = str(x)
-                    if x == y:
-                        del final[final.index(int(x))]
 
-        if times > 1:
-            for y in final[length:leg]:
-                y = str(y)
-                y = y[0:(len(str(y)))-1]
-                for x in final[0:length]:
-                    x = str(x)
-                    if x == y:
-                        del final[final.index(int(x))]
-                        
-        length = len(final)
-        print("hello")
-        
 
-        for x in final:
-            for y in test_cases:
-                z = str(y) + str(x)
-                z = int(z)
-                clone.append(z)
 
-    print(final)
-    for x in final:
-        z = final.index(x)
-        x = base_convert_to_10(base, x)
-        final[z] = x
-    return final
-print(get_right_truncatable_primes(6))
 
+
+
+
+
+
+print(bomb_has_been_planted([
+            ["0", "0", "0", "0", "0", "0"],
+            ["CT", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "B"],
+            ["0", "0", "0", "0", "0", "0"],
+            ["0", "0", "K", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0"],
+            ["0", "0", "0", "0", "0", "0"]
+        ], 13))
