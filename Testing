@@ -1,0 +1,33 @@
+def queue_time(c, n):
+    time = 0
+    stop = True
+    if n > len(c):
+        n = len(c)
+    while c != []:
+        for y in c:
+            if y != 0:
+                stop = False
+        if stop == True:
+            break
+
+        for x in range(n):
+
+            while c[x] == 0:
+                if x + n > len(c)-1:
+                   break 
+                else:
+                    x += n
+
+            if c[x] != 0:
+                c[x] -= 1
+        time += 1
+        stop = True
+
+    return time
+    
+
+
+
+
+
+print(queue_time([1,2,3,4,5], 2))
