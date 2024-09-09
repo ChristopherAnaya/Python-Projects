@@ -2,9 +2,9 @@ import random
 board = []
 while True:
     try:
-        size = int(input("Choose Your Size "))
+        size = int(input("Choose Your Size Between 2-38 "))
         size + 1
-        if size <= 2:
+        if size < 2 or size > 38:
             2/0
         break
     except ZeroDivisionError:
