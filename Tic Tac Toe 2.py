@@ -33,6 +33,7 @@ def rows(y):
     print(bot)
 def current():
     top = " "
+    print(board)
     for x in range(size):
         if x == 0:
             top += "_____"
@@ -45,12 +46,12 @@ def current():
 while True:
     try:
         players = int(input("How Many Players "))
-        if players > 2:
+        if players > 2 or players <= 0:
             2/0
         break
     except ZeroDivisionError:
         print("--------------------------------------")
-        print("       To Many Players Try Again      ")
+        print("  To Many Or Little Players Try Again ")
         print("--------------------------------------")
     except:
         print("--------------------------------------")
