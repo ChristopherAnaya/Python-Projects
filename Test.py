@@ -1,17 +1,11 @@
-def prime_factors(base):
-    factors = {}
-    d = 2
-    while d * d <= base:
-        print(d)
-        while (base % d) == 0:
-            if d not in factors:
-                factors[d] = 0
-            factors[d] += 1
-            base //= d
-        d += 1
-    if base > 1:
-        factors[base] = 1
-    return factors
+def pentagonal(n):
+    print(n)
+    if n <= 0:
+        return -1
+    center = 1
+    sides = (n - 1) * 5 
+    midle = sum(x for x in range(1, n-1)) * 5 if n >= 2 else 0
+    print(sides, midle)
 
 
-print(prime_factors(8))
+pentagonal(4) 
